@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Navbar as BootstrapNavbar, Container, Nav } from "react-bootstrap";
 
 const Navbar = () => {
@@ -8,6 +8,14 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const linkStyle = {
+    color: "#a9a9a9",
+    transition: "color 0.3s ease",
+  };
+
+  const linkHoverStyle = {
+    color: "#e5e5e5",
+  };
   return (
     <BootstrapNavbar expand="lg" className="navbar-dark">
       <Container fluid className="px-3">
@@ -30,18 +38,20 @@ const Navbar = () => {
             <Nav.Link href="#" className="fw-bold text-white">
               Home
             </Nav.Link>
-            <Nav.Link href="#" className="fw-bold text-white">
-              TV Shows
-            </Nav.Link>
-            <Nav.Link href="#" className="fw-bold text-white">
-              Movies
-            </Nav.Link>
-            <Nav.Link href="#" className="fw-bold text-white">
-              Recently Added
-            </Nav.Link>
-            <Nav.Link href="#" className="fw-bold text-white">
-              My List
-            </Nav.Link>
+            {["TV Shows", "Movies", "Recently Added", "My List"].map((item) => (
+              <Nav.Link
+                key={item}
+                href="#"
+                className="fw-bold"
+                style={linkStyle}
+                onMouseEnter={(e) =>
+                  Object.assign(e.target.style, linkHoverStyle)
+                }
+                onMouseLeave={(e) => Object.assign(e.target.style, linkStyle)}
+              >
+                {item}
+              </Nav.Link>
+            ))}
           </Nav>
           <div className="d-flex flex-row align-items-center mt-3 mt-lg-0">
             <div className="d-flex align-items-center">

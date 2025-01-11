@@ -1,5 +1,3 @@
-import React from "react";
-
 const Footer = () => {
   const iconStyle = {
     color: "#757575",
@@ -16,30 +14,13 @@ const Footer = () => {
           <div className="row g-0">
             <div className="col mb-2 text-start" style={{ fontSize: 16 }}>
               {" "}
+              <i className="bi bi-facebook" style={iconStyle}></i>
+              <i className="bi bi-instagram" style={iconStyle}></i>
               <i
-                className="bi bi-facebook"
+                className="bi bi-twitter-x footer-icon me-2"
                 style={iconStyle}
-                onMouseOver={(e) => (e.target.style.color = "#ffffff")}
-                onMouseOut={(e) => (e.target.style.color = "#757575")}
               ></i>
-              <i
-                className="bi bi-instagram"
-                style={iconStyle}
-                onMouseOver={(e) => (e.target.style.color = "#ffffff")}
-                onMouseOut={(e) => (e.target.style.color = "#757575")}
-              ></i>
-              <i
-                className="bi bi-twitter"
-                style={iconStyle}
-                onMouseOver={(e) => (e.target.style.color = "#ffffff")}
-                onMouseOut={(e) => (e.target.style.color = "#757575")}
-              ></i>
-              <i
-                className="bi bi-youtube"
-                style={iconStyle}
-                onMouseOver={(e) => (e.target.style.color = "#ffffff")}
-                onMouseOut={(e) => (e.target.style.color = "#757575")}
-              ></i>
+              <i className="bi bi-youtube" style={iconStyle}></i>
             </div>
           </div>
 
@@ -51,18 +32,19 @@ const Footer = () => {
                 type="button"
                 className="btn btn-sm footer-button rounded-0 mt-3"
                 style={{
-                  backgroundColor: "#141414",
                   color: "#757575",
                   border: "1px solid #757575",
                   fontSize: "12px",
+                  transition: "all 0.3s ease",
                 }}
                 onMouseOver={(e) => {
-                  e.target.style.backgroundColor = "#ffffff";
-                  e.target.style.color = "#141414";
+                  e.target.style.backgroundColor = "transparent";
+                  e.target.style.color = "#ffffff";
+                  e.target.style.border = "1px solid transparent";
                 }}
                 onMouseOut={(e) => {
-                  e.target.style.backgroundColor = "#141414";
                   e.target.style.color = "#757575";
+                  e.target.style.border = "1px solid #757575";
                 }}
               >
                 Service Code
@@ -105,8 +87,6 @@ const FooterLinks = () => (
                     textDecoration: "none",
                     color: "#757575",
                   }}
-                  onMouseOver={(e) => (e.target.style.color = "#ffffff")}
-                  onMouseOut={(e) => (e.target.style.color = "#757575")}
                 >
                   {link}
                 </a>

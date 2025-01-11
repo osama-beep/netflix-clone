@@ -1,5 +1,7 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
+const API_KEY = "6e36dee6";
 const MainContent = () => {
   return (
     <div className="container-fluid px-4 py-0">
@@ -49,28 +51,96 @@ const MainContent = () => {
         </div>
       </div>
 
-      <Section title="Trending Now" images={[1, 2, 3, 4, 5, 6]} />
-      <Section title="Watch it Again" images={[7, 8, 9, 10, 11, 12]} />
-      <Section title="New Releases" images={[13, 14, 15, 16, 17, 18]} />
+      <MovieGallery title="Disney" searchTerm="Disney" />
+      <MovieGallery title="Marvel Cinematic Universe" searchTerm="Marvel " />
+      <MovieGallery title="Attack on Titan" searchTerm="Attack on Titan" />
+      <MovieGallery title="Star Wars" searchTerm="Star Wars" />
+      <MovieGallery title="Fantastic Beasts" searchTerm="Fantastic Beasts" />
+      <MovieGallery title="Harry Potter" searchTerm="Harry Potter" />
     </div>
   );
 };
 
-const Section = ({ title, images }) => (
+const MovieGallery = ({ title, searchTerm }) => {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch(
+          `https://www.omdbapi.com/?apikey=${API_KEY}&s=${searchTerm}`
+        );
+        const data = await response.json();
+        if (data.Search) {
+          setMovies(data.Search.slice(0, 6));
+        }
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
+
+    fetchMovies();
+  }, [searchTerm]);
+
+  return <Section title={title} movies={movies} />;
+};
+
+MovieGallery.propTypes = {
+  title: PropTypes.string.isRequired,
+  searchTerm: PropTypes.string.isRequired,
+};
+
+const Section = ({ title, movies }) => (
   <>
     <h4 className="text-light">{title}</h4>
     <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xl-6 mb-4">
-      {images.map((img) => (
-        <div key={img} className="col mb-2 text-center px-1">
-          <img
-            className="img-fluid"
-            src={`src/assets/${img}.png`}
-            alt="movie picture"
-          />
+      {movies.map((movie) => (
+        <div key={movie.imdbID} className="col mb-2 text-center px-1">
+          <div
+            style={{
+              transition: "all 0.18s ease-in-out",
+              position: "relative",
+              zIndex: 1,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.07) translateZ(20px)";
+              e.currentTarget.style.zIndex = "10";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1) translateZ(0)";
+              e.currentTarget.style.zIndex = "1";
+            }}
+          >
+            <img
+              className="img-fluid"
+              src={
+                movie.Poster !== "N/A"
+                  ? movie.Poster
+                  : "https://via.placeholder.com/300x450.png?text=No+Poster"
+              }
+              alt={movie.Title}
+              style={{
+                backfaceVisibility: "hidden",
+                height: "300px",
+                objectFit: "cover",
+              }}
+            />
+          </div>
         </div>
       ))}
     </div>
   </>
 );
+
+Section.propTypes = {
+  title: PropTypes.string.isRequired,
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      imdbID: PropTypes.string.isRequired,
+      Poster: PropTypes.string.isRequired,
+      Title: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 
 export default MainContent;
