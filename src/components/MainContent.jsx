@@ -55,7 +55,7 @@ const MainContent = () => {
       <MovieGallery title="Marvel Cinematic Universe" searchTerm="Marvel " />
       <MovieGallery title="Attack on Titan" searchTerm="Attack on Titan" />
       <MovieGallery title="Star Wars" searchTerm="Star Wars" />
-      <MovieGallery title="Fantastic Beasts" searchTerm="Fantastic Beasts" />
+      <MovieGallery title="Interstellar" searchTerm="Space" />
       <MovieGallery title="Harry Potter" searchTerm="Harry Potter" />
     </div>
   );
