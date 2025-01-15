@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const API_KEY = "6e36dee6";
 const MainContent = () => {
@@ -96,36 +97,42 @@ const Section = ({ title, movies }) => (
     <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xl-6 mb-4">
       {movies.map((movie) => (
         <div key={movie.imdbID} className="col mb-2 text-center px-1">
-          <div
-            style={{
-              transition: "all 0.18s ease-in-out",
-              position: "relative",
-              zIndex: 1,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.07) translateZ(20px)";
-              e.currentTarget.style.zIndex = "10";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1) translateZ(0)";
-              e.currentTarget.style.zIndex = "1";
-            }}
+          <Link
+            to={`/movie-details/${movie.imdbID}`}
+            style={{ textDecoration: "none" }}
           >
-            <img
-              className="img-fluid"
-              src={
-                movie.Poster !== "N/A"
-                  ? movie.Poster
-                  : "https://via.placeholder.com/300x450.png?text=No+Poster"
-              }
-              alt={movie.Title}
+            <div
               style={{
-                backfaceVisibility: "hidden",
-                height: "300px",
-                objectFit: "cover",
+                transition: "all 0.18s ease-in-out",
+                position: "relative",
+                zIndex: 1,
               }}
-            />
-          </div>
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform =
+                  "scale(1.07) translateZ(20px)";
+                e.currentTarget.style.zIndex = "10";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "scale(1) translateZ(0)";
+                e.currentTarget.style.zIndex = "1";
+              }}
+            >
+              <img
+                className="img-fluid"
+                src={
+                  movie.Poster !== "N/A"
+                    ? movie.Poster
+                    : "https://via.placeholder.com/300x450.png?text=No+Poster"
+                }
+                alt={movie.Title}
+                style={{
+                  backfaceVisibility: "hidden",
+                  height: "300px",
+                  objectFit: "cover",
+                }}
+              />
+            </div>
+          </Link>
         </div>
       ))}
     </div>

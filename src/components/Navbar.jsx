@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navbar as BootstrapNavbar, Container, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,10 +17,11 @@ const Navbar = () => {
   const linkHoverStyle = {
     color: "#e5e5e5",
   };
+
   return (
     <BootstrapNavbar expand="lg" className="navbar-dark">
       <Container fluid className="px-3">
-        <BootstrapNavbar.Brand href="#">
+        <BootstrapNavbar.Brand as={Link} to="/">
           <img
             src="src/assets/logo.png"
             alt="Logo"
@@ -35,10 +37,22 @@ const Navbar = () => {
           className={isMenuOpen ? "show" : ""}
         >
           <Nav className="me-auto mb-2 mb-lg-0">
-            <Nav.Link href="#" className="fw-bold text-white">
+            <Nav.Link as={Link} to="/" className="fw-bold text-white">
               Home
             </Nav.Link>
-            {["TV Shows", "Movies", "Recently Added", "My List"].map((item) => (
+            <Nav.Link
+              as={Link}
+              to="/tv-shows"
+              className="fw-bold"
+              style={linkStyle}
+              onMouseEnter={(e) =>
+                Object.assign(e.target.style, linkHoverStyle)
+              }
+              onMouseLeave={(e) => Object.assign(e.target.style, linkStyle)}
+            >
+              TV Shows
+            </Nav.Link>
+            {["Movies", "Recently Added", "My List"].map((item) => (
               <Nav.Link
                 key={item}
                 href="#"
@@ -53,6 +67,7 @@ const Navbar = () => {
               </Nav.Link>
             ))}
           </Nav>
+
           <div className="d-flex flex-row align-items-center mt-3 mt-lg-0">
             <div className="d-flex align-items-center">
               <i
